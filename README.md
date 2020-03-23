@@ -32,23 +32,23 @@ linux-2020-pengmingxiao3759 created by GitHub Classroom
     ![putty]
 
 ## 3.在Ubuntu环境下制作镜像
-(1). 输入代码
+### (1). 输入代码
 `mount -o loop ubuntu-18.04.1-server-amd64.iso loopdir`
 ![mount]
 发现问题：文件夹只读
 使用下图代码写入：
 ![解决]
-(2). 同步iso
+### (2). 同步iso
 `rsync -av loopdir/ cd`
 ![同步]
-(3). 卸载iso
+### (3). 卸载iso
 `umount loopdir`
 
 
-(4)进入目标工作目录
+### (4)进入目标工作目录
 cd cd/
 
-(5) 编辑Ubuntu安装引导界面增加一个新菜单项入口
+### (5) 编辑Ubuntu安装引导界面增加一个新菜单项入口
 vim isolinux/txt.cfg
 修改isolinux文件夹下的txt.cfg：
 
