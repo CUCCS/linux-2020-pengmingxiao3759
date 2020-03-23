@@ -34,26 +34,26 @@ linux-2020-pengmingxiao3759 created by GitHub Classroom
 ![putty]
 
 ## 3.在Ubuntu环境下制作镜像
-(1). 输入代码
+# (1). 输入代码
 `mount -o loop ubuntu-18.04.1-server-amd64.iso loopdir`
 ![mount]
 发现问题：文件夹只读
 使用下图代码写入：
 ![解决]
-(2). 同步iso
+# (2). 同步iso
 `rsync -av loopdir/ cd`
 ![同步]
-(3). 卸载iso
+# (3). 卸载iso
 `umount loopdir`
 
 
-# 进入目标工作目录
+# (4)进入目标工作目录
 cd cd/
 
-# 编辑Ubuntu安装引导界面增加一个新菜单项入口
+# (5) 编辑Ubuntu安装引导界面增加一个新菜单项入口
 vim isolinux/txt.cfg
 ```
-### 2.修改isolinux文件夹下的txt.cfg：
+# 修改isolinux文件夹下的txt.cfg：
 
 在第二行default下添加：
 
@@ -66,17 +66,17 @@ label autoinstall
 
 ![vimcfg]
 
-### 3.修改preseed：
+### (6).修改preseed：
 
 使用老师提供的seed，保存至cd/preseed目录下。
 
-### 4.修改isolinux.cfg：
+### (7).修改isolinux.cfg：
 
 将timeout 300 改为timeout 10。
 
 ![set-timeout]
 
-### 5.重新生成MD5校验和：
+### (8).重新生成MD5校验和：
 
 修改md5sum文件的权限，原来只读更改为可写：
 
@@ -104,28 +104,6 @@ sudo mkisofs -r -V "Custom Ubuntu Install CD" \
 ```
 
 ![reset-md5]
-
-###6. 生成自动安装镜像
-```
-IMAGE=custom.iso
-BUILD=~/cd/
-
-mkisofs -r -V "Custom Ubuntu Install CD" \
-            -cache-inodes \
-            -J -l -b isolinux/isolinux.bin \
-            -c isolinux/boot.cat -no-emul-boot \
-            -boot-load-size 4 -boot-info-table \
-            -o $IMAGE $BUILD
-```
-出现错误：
-![镜像错误]
-无法找到指令mkisofs,可以通过安装genisoimage来解决:
-`apt install genisoimage`
-
-解决问题后成功生成镜像：
-![成功]
-###7. 使用psftp从虚拟机中取出镜像
-![完成]
 
 ## 4.安装
 [安装录屏]()
