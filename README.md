@@ -53,13 +53,11 @@ vim isolinux/txt.cfg
 修改isolinux文件夹下的txt.cfg：
 
 在第二行default下添加：
-
 bash
 label autoinstall
   menu label ^Auto Install Ubuntu Server
   kernel /install/vmlinuz
   append  file=/cdrom/preseed/ubuntu-server-autoinstall.seed debian-installer/locale=en_US console-setup/layoutcode=us keyboard-configuration/layoutcode=us console-setup/ask_detect=false localechooser/translation/warn-light=true localechooser/translation/warn-severe=true initrd=/install/initrd.gz root=/dev/ram rw quiet
-
 ![vimcfg]
 (6).修改preseed：
 
@@ -101,7 +99,7 @@ sudo mkisofs -r -V "Custom Ubuntu Install CD" \
 ![reset-md5]
 
 ## 4.安装
-[安装录屏]()
+[安装录屏](未上传)
 
 
 
