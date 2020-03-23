@@ -20,14 +20,14 @@ linux-2020-pengmingxiao3759 created by GitHub Classroom
 ## 2.配置ssh和putty
 
 ### [前提：双网卡](https://www.bilibili.com/video/av86360440)
-(1). 安装SSh服务
+    (1). 安装SSh服务
 
-![安装SSh]
-(2). 下载并安装putty
+    ![安装SSh]
+    (2). 下载并安装putty
 
-![putty]
-(3). 使用ifconfig活着ip a 得知主机ip地址
-![ip]
+    ![putty]
+    (3). 使用ifconfig活着ip a 得知主机ip地址
+    ![ip]
 (4). 链接psftp
    *open 192.168.56.101
    *put原始安装iso
@@ -45,6 +45,68 @@ linux-2020-pengmingxiao3759 created by GitHub Classroom
 ![同步]
 (3). 卸载iso
 `umount loopdir`
+
+
+# 进入目标工作目录
+cd cd/
+
+# 编辑Ubuntu安装引导界面增加一个新菜单项入口
+vim isolinux/txt.cfg
+```
+
+### 2.修改isolinux文件夹下的txt.cfg：
+
+在第二行default下添加：
+
+```bash
+label autoinstall
+  menu label ^Auto Install Ubuntu Server
+  kernel /install/vmlinuz
+  append  file=/cdrom/preseed/ubuntu-server-autoinstall.seed debian-installer/locale=en_US console-setup/layoutcode=us keyboard-configuration/layoutcode=us console-setup/ask_detect=false localechooser/translation/warn-light=true localechooser/translation/warn-severe=true initrd=/install/initrd.gz root=/dev/ram rw quiet
+```
+
+![vimcfg]
+
+### 3.修改preseed：
+
+使用老师提供的seed，保存至cd/preseed目录下。
+
+### 4.修改isolinux.cfg：
+
+将timeout 300 改为timeout 10。
+
+![set-timeout]
+
+### 5.重新生成MD5校验和：
+
+修改md5sum文件的权限，原来只读更改为可写：
+
+```bash
+chmod 666 md5sum.txt
+```
+
+执行命令：
+
+```bash
+cd ~/cd && find . -type f -print0 | xargs -0 md5sum > md5sum.txt
+```
+
+重新生成custom.iso：
+
+```bash
+IMAGE=custom.iso
+BUILD=cd/
+sudo mkisofs -r -V "Custom Ubuntu Install CD" \
+                        -cache-inodes \
+                        -J -l -b isolinux/isolinux.bin \
+                        -c isolinux/boot.cat -no-emul-boot \
+                        -boot-load-size 4 -boot-info-table \
+                        -o $IMAGE $BUILD
+```
+
+![reset-md5]
+
+
 (4). 进入目标工作目录；编辑Ubuntu安装引导界面增加一个新菜单项入口
 `cd cd/`
 `vim isolinux/txt.cfg`
