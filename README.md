@@ -27,7 +27,7 @@ linux-2020-pengmingxiao3759 created by GitHub Classroom
 ## (3). 使用ifconfig活着ip a 得知主机ip地址
 ![ip]
 ## (4). 链接psftp
- *open 192.168.56.101
+*open 192.168.56.101
     *put原始安装iso
     ![putty]
 
