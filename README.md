@@ -2,9 +2,9 @@
 linux-2020-pengmingxiao3759 created by GitHub Classroom
 # 第一次作业   
     无人值守安装Ubuntu
-# 实验要求
-  1.如何配置无人值守安装iso并在Virtualbox中完成自动化安装。
-   2.Virtualbox安装完Ubuntu之后新添加的网卡如何实现系统开机自动启用和自动获取IP？
+## 实验要求
+    1.如何配置无人值守安装iso并在Virtualbox中完成自动化安装。
+    2.Virtualbox安装完Ubuntu之后新添加的网卡如何实现系统开机自动启用和自动获取IP？
     3.如何使用sftp在虚拟机和宿主机之间传输文件？
 ## 流程
     1. 安装Ubuntu18.04
@@ -22,27 +22,27 @@ linux-2020-pengmingxiao3759 created by GitHub Classroom
 ### [前提：双网卡](https://www.bilibili.com/video/av86360440)
 (1). 安装SSh服务
 
-![安装SSh](/img/1.jpg)
+![安装SSh]
 (2). 下载并安装putty
 
-![putty](/img/putty.png)
+![putty]
 (3). 使用ifconfig活着ip a 得知主机ip地址
-![ip](img/ip.png)
+![ip]
 (4). 链接psftp
    *open 192.168.56.101
    *put原始安装iso
-![putty](img/psftp.png)
+![putty]
 
 ## 3.在Ubuntu环境下制作镜像
 (1). 输入代码
 `mount -o loop ubuntu-18.04.1-server-amd64.iso loopdir`
-![mount](img/4.jpg)
+![mount]
 发现问题：文件夹只读
 使用下图代码写入：
-![解决](img/5.jpg)
+![解决]
 (2). 同步iso
 `rsync -av loopdir/ cd`
-![同步](img/6.jpg)
+![同步]
 (3). 卸载iso
 `umount loopdir`
 (4). 进入目标工作目录；编辑Ubuntu安装引导界面增加一个新菜单项入口
@@ -56,7 +56,7 @@ label autoinstall
   append  file=/cdrom/preseed/ubuntu-server-autoinstall.seed debian-installer/locale=en_US console-setup/layoutcode=us keyboard-configuration/layoutcode=us console-setup/ask_detect=false localechooser/translation/warn-light=true localechooser/translation/warn-severe=true initrd=/install/initrd.gz root=/dev/ram rw quiet
   ```
 (5). 使用教师给予的.seed文件，并将其复制到/cd/preseed/
-![复制](img/8.jpg)
+![复制]
 (6). 使用以下代码重新生成md5验证
 `cd ~/cd && find . -type f -print0 | xargs -0 md5sum > md5sum.txt`
 (7). 生成自动安装镜像
@@ -72,14 +72,14 @@ mkisofs -r -V "Custom Ubuntu Install CD" \
             -o $IMAGE $BUILD
 ```
 出现错误：
-![镜像错误](img/9.jpg)
+![镜像错误]
 无法找到指令mkisofs,可以通过安装genisoimage来解决:
 `apt install genisoimage`
 
 解决问题后成功生成镜像：
-![成功](img/10.jpg)
+![成功]
 (8). 使用psftp从虚拟机中取出镜像
-![完成](img/11.jpg)
+![完成]
 ## 4.安装
 [安装录屏]()
 
