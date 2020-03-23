@@ -53,7 +53,6 @@ cd cd/
 # 编辑Ubuntu安装引导界面增加一个新菜单项入口
 vim isolinux/txt.cfg
 ```
-
 ### 2.修改isolinux文件夹下的txt.cfg：
 
 在第二行default下添加：
@@ -106,22 +105,7 @@ sudo mkisofs -r -V "Custom Ubuntu Install CD" \
 
 ![reset-md5]
 
-
-(4). 进入目标工作目录；编辑Ubuntu安装引导界面增加一个新菜单项入口
-`cd cd/`
-`vim isolinux/txt.cfg`
-* 添加以下内容到txt.cfg
-```
-label autoinstall
-  menu label ^Auto Install Ubuntu Server
-  kernel /install/vmlinuz
-  append  file=/cdrom/preseed/ubuntu-server-autoinstall.seed debian-installer/locale=en_US console-setup/layoutcode=us keyboard-configuration/layoutcode=us console-setup/ask_detect=false localechooser/translation/warn-light=true localechooser/translation/warn-severe=true initrd=/install/initrd.gz root=/dev/ram rw quiet
-  ```
-(5). 使用教师给予的.seed文件，并将其复制到/cd/preseed/
-![复制]
-(6). 使用以下代码重新生成md5验证
-`cd ~/cd && find . -type f -print0 | xargs -0 md5sum > md5sum.txt`
-(7). 生成自动安装镜像
+###6. 生成自动安装镜像
 ```
 IMAGE=custom.iso
 BUILD=~/cd/
@@ -140,8 +124,9 @@ mkisofs -r -V "Custom Ubuntu Install CD" \
 
 解决问题后成功生成镜像：
 ![成功]
-(8). 使用psftp从虚拟机中取出镜像
+###7. 使用psftp从虚拟机中取出镜像
 ![完成]
+
 ## 4.安装
 [安装录屏]()
 
