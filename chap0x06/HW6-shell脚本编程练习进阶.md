@@ -22,13 +22,13 @@
 * 功能点
   *  配置一个提供匿名访问的FTP服务器，匿名访问者可以访问1个目录且仅拥有该目录及其所有子目录的只读访问权限；
   *  实现效果
-          ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/one.png)
+          ![](Image/one.png)
   *  具体步骤
   *  第一步，编辑 /etc/proftpd目录下的proftpd.conf文件
      $ sudo vim  /etc/proftpd/proftpd.conf  
   *  添加以下内容
-                 ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/2.png)
-                ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/3.png)
+                 ![](Image/2.png)
+                ![](Image/3.png)
   *  第二步
    * 创建共享文件夹
 
@@ -40,8 +40,8 @@
 
       * 配置一个支持用户名和密码方式访问的账号，该账号继承匿名访问者所有权限，且拥有对另1个独立目录及其子目录完整读写（包括创建目录、修改文件、删除文件等）权限（该账号仅可用于FTP服务访问，不能用于系统shell登录）
           *  实现效果
-             *  ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/4.png)
-             *   ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/5.png)
+             *  ![](Image/4.png)
+             *   ![](Image/5.png)
           *  具体步骤
              *  第一步， 编辑 /etc/proftpd目录下的proftpd.conf文件
                   * sudo vim  /etc/proftpd/proftpd.conf
@@ -73,18 +73,18 @@
         * sudo vim  /etc/proftpd/proftpd.conf
 
       * 添加以下内容
-                  ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/6.png)
+                  ![](Image/6.png)
 
 
       * 匿名访问权限仅限白名单IP来源用户访问，禁止白名单IP以外的访问
           *   实现效果
-             *  ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/8.png)
+             *  ![](Image/8.png)
 
           *  具体步骤
              *  编辑 /etc/proftpd目录下的proftpd.conf文件
                   * sudo vim  /etc/proftpd/proftpd.conf
                   * 添加以下内容，即IP在白名单中的192.168.92.101可以对ftp服务器进行访问，白名单外的IP不能访问
-                  ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/7.png)
+                  ![](Image/7.png)
 
 
 * **NFS**   
@@ -113,7 +113,7 @@
          *   sudo mount 192.168.92.101:/var/nfs/general /nfs/general
          *   sudo mount 192.168.57.7:/home /nfs/home
              *  【注意事项】，在进行挂载的时候，可能会出现如下问题，是因为NFS服务尚未启动
-             *    ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/9.png)        
+             *    ![](Image/9.png)        
              * 所以在执行前启动NFS服务
 
                         sudo service nfs-kernel-server restart
@@ -130,7 +130,7 @@
          *  创建和Samba共享用户同名的linux 用户
             *   sudo smbpasswd -a 用户名           
          *  在 samba配置文件，即/etc/samba/smb.conf 文件尾部添加以下配置，guest为匿名用户可以访问的目录（不可写），demo为虚拟用即户才能访问的目录（可读写）
-           ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/10.png)
+           ![](Image/10.png)
          *   恢复一个samba用户
              * smbpasswd -e smbuser  
          *   创建用户组
@@ -148,23 +148,23 @@
  *  client
    *  下载安装Samba
    *   访问需要用户名密码的可读写文件：\\192.168.92.101\demo
-              ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/11.png)
-              ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/12.png)
+              ![](Image/11.png)
+              ![](Image/12.png)
             *   Linux设置匿名访问共享目录
-              ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/13.png)
+              ![](Image/13.png)
 * **ＤＨＣＰ**
      *  具体步骤
            *  编辑 server的/etc/network/interfaces文件，添加以下内容
-                        ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/16.png)   
+                        ![](Image/16.png)   
            *  编辑server的/etc/default/isc-dhcp-server文件，添加以下内容　　　　　　　　　　
                  *  INTERFACES="enp0s9"
            *  编辑server的/etc/dhcp/dhcpd.conf文件，添加以下内容
-           ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/17.png)
+           ![](Image/17.png)
 
 * **DNS**
  * 　实现效果
-          ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/23.png)
-          ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/24.png)
+          ![](Image/23.png)
+          ![](Image/24.png)
 ## 具体步骤
 *  **server**
 *  下载安装bind9
@@ -173,12 +173,12 @@
 
 	  sudo apt-get install bind9
   *  编辑 /etc/bind/named.conf.local文件，添加下面内容
-                        ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/20.png)
+                        ![](Image/20.png)
    * 创建ｄｂ文件
 
 	   sudo cp /etc/bind/db.local /etc/bind/db.cuc.edu.cn
    *  编辑 /etc/bind/db.cuc.edu.cn文件，添加下面内容
-                        ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/21.png)
+                        ![](Image/21.png)
 
    * 启动服务
             
@@ -187,7 +187,7 @@
  * **client**
 
   * 编辑 /etc/resolvconf/resolv.conf.d/head文件，添加下面内容
-                        ![](https://raw.githubusercontent.com/CUCCS/linux-2020-pengmingxiao3759/HW-6/Image/22.png)
+                        ![](Image/22.png)
   * 更新resolv.conf文件
 
 	    sudo resolvconf -u
@@ -202,5 +202,5 @@
 [Setting up Samba as a Standalone Server](https://wiki.samba.org/index.php/Setting_up_Samba_as_a_Standalone_Server)
 
 [Configure BIND as a Private Network DNS Server on Ubuntu 14.04](https://www.digitalocean.com/community/tutorials/
-(https://github.com/CUCCS/2015-linux-public-U2Vino/tree/HW-6)
+[](https://github.com/CUCCS/2015-linux-public-U2Vino/tree/HW-6)
 how-to-configure-bind-as-a-private-network-dns-server-on-ubuntu-14-04)
